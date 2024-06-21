@@ -2,7 +2,7 @@ resources:
   repositories:
     - repository: templates
       type: github
-      name: joseniltoncabral/help-diego
+      name: Diego-Lemos6/azure-pipeline-security
       ref: main
       endpoint: # project / service connection / github
 
