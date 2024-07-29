@@ -1,5 +1,5 @@
 jobs:
-- job: Check Docker version
+- job: CheckDockerVersion
   steps:
     - script: docker --version
       displayName: 'Check Docker version'
