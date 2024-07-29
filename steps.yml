@@ -1,8 +1,8 @@
 jobs:
 - job: Check Docker version
-steps:
-- script: docker --version
-  displayName: 'Check Docker version'
+  steps:
+    - script: docker --version
+      displayName: 'Check Docker version'
 
 - job: InstallTrivy
   steps:
