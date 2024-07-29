@@ -19,7 +19,7 @@ jobs:
     - TrivySbom
   steps:
     - script: trivy sbom $(Agent.BuildDirectory)/sbom.json --format json
-      displayName: 'Run Command'
+      displayName: 'Run trivysbom'
 
 - job: InstallGitleaks
   steps:
@@ -31,6 +31,15 @@ jobs:
     - InstallGitleaks
   steps:
     - script: gitleaks detect -v --source="$(Build.SourcesDirectory)" --report-path="$(Agent.BuildDirectory)/gitleaks.json" --exit-code 0 --report-format="json"
-      displayName: 'Run Command'
+      displayName: 'Run gitleaks'
     - script: cat $(Agent.BuildDirectory)/gitleaks.json
+      displayName: 'View File'
+      
+- job: semgrep    
+  steps:
+    - script: docker pull returntocorp/semgrep
+      displayName: 'Pull Semgrep Docker Image'
+    - script: docker run --rm -v "$(Build.SourcesDirectory)":/src returntocorp/semgrep --config p/r2c-ci --report-path="$(Agent.BuildDirectory)/semgrep.json" --exit-code 0 --report-format="json"
+      displayName: 'Run Semgrep'
+    - script: cat $(Agent.BuildDirectory)/semgrep.json
       displayName: 'View File'
