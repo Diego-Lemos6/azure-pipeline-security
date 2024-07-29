@@ -1,4 +1,9 @@
 jobs:
+- job: Check Docker version
+steps:
+- script: docker --version
+  displayName: 'Check Docker version'
+
 - job: InstallTrivy
   steps:
     - script: curl https://raw.githubusercontent.com/Diego-Lemos6/azure-pipeline-security/main/scripts/install_trivy.sh | sh
@@ -35,7 +40,7 @@ jobs:
     - script: cat $(Agent.BuildDirectory)/gitleaks.json
       displayName: 'View File'
       
-- job: semgrep    
+- job: Semgrep    
   steps:
     - script: docker pull returntocorp/semgrep
       displayName: 'Pull Semgrep Docker Image'
